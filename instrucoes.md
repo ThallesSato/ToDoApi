@@ -7,7 +7,7 @@
 <code>docker pull mcr.microsoft.com/mssql/server:2022-latest</code>
 - 2 - Rode o container usando o comando:  
 <code>
-docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=<YourStrong@Passw0rd>"   
+  docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=<YourStrong@Passw0rd>"   
   -p 1433:1433 --name sqlserver --hostname sqlserver 
   -d  
   mcr.microsoft.com/mssql/server:2022-latest
