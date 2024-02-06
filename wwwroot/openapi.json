@@ -1,0 +1,281 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "ToDo API",
+    "description": "An ASP.NET Core Web API for managing ToDo items for Trendx",
+    "contact": {
+      "name": "Thalles Email",
+      "email": "thalles_sato@hotmail.com"
+    },
+    "version": "v1"
+  },
+  "tags": [
+    {
+      "name": "Todo",
+      "description": "Todo CRUD"
+    }
+  ],
+  "paths": {
+    "/api/tasks": {
+      "post": {
+        "tags": [
+          "Todo"
+        ],
+        "summary": "Add a new Todo in database",
+        "description": "Add a new Todo in database",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TodoDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TodoDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TodoDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Todo"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Todo"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Todo"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Todo"
+        ],
+        "summary": "Finds all Todos in database",
+        "description": "Finds all Todos in database",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Sample response": {
+                    "value": "[\n    {\n        \"id\": \"8f1a0eab-245a-4d19-d714-08dc2534e26e\",\n        \"title\": \"Sample Title 1\",\n        \"description\": \"Sample Description 1\",\n        \"completed\": true\n    },\n    {\n        \"id\": \"5d9bb322-b45a-4916-6949-08dc2537f803\",\n        \"title\": \"Sample Title 2\",\n        \"description\": \"Sample Description 2\",\n        \"completed\": false\n    },\n    {\n        \"id\": \"4b4fdbce-9ade-4536-2d46-08dc2538757a\",\n        \"title\": \"Sample Title 3\",\n        \"description\": \"Sample Description 3\",\n        \"completed\": false\n    }\n]"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/tasks/{id}": {
+      "get": {
+        "tags": [
+          "Todo"
+        ],
+        "summary": "Find Todo in database by Id",
+        "description": "Find Todo in database by Id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Todo Id",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Todo"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Todo"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Todo"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Todo"
+        ],
+        "summary": "Update an existing Todo",
+        "description": "Find Todo in database by Id, Update properties and Save in database",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Todo Id",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TodoDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TodoDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TodoDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Todo"
+        ],
+        "summary": "Delete an existing Todo",
+        "description": "Find Todo in database by Id, and exclude from database",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Todo Id",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Todo": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "completed": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TodoDto": {
+        "required": [
+          "completed",
+          "description",
+          "title"
+        ],
+        "type": "object",
+        "properties": {
+          "title": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "description": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "completed": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}
