@@ -19,6 +19,9 @@ All endpoints are open and require no Authentication.
     - 201: Created
         - Content:
             - Schema: [Todo](#todo)
+        - Header:
+            - Content:
+                - Link to Todo created    
     - 400: Bad Request 
     - 500: Internal Server Error
 
